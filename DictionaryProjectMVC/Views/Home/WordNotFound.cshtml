@@ -1,0 +1,14 @@
+﻿@model WordNotFound
+<div class="word-not-found-container">
+
+
+    <img asp-append-version="true" src="~/Images/page-not-found.svg" />
+    <p>@Model.Message</p>
+
+    <div class="">
+        <a class="button nav-link  text-light" asp-controller="home" asp-action=@nameof(HomeController.Index)>
+        Click here to search a Word
+    </a>
+    </div>
+
+</div>

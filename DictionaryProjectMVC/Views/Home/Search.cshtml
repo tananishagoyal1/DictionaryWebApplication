@@ -1,0 +1,42 @@
+﻿@model InputWordViewModel
+@{
+    Layout = "_NewLayout";
+    ViewBag.Title = "Search Page";
+}
+<div class="d-flex justify-content-center">
+    <div class="display-data">
+        <img asp-append-version="true" class="search-background-image" src="~/Images/search_background_image.png" />
+        <ul class="list-group border-none">
+            <li class="list-group-item  "><b>Word</b> : @Model.WordMeaning.Word</li>
+            @if (Model.WordMeaning.Phonetic != null)
+            {
+                <li class="list-group-item"><b> Phonetic</b> : @Model.WordMeaning.Phonetic</li>
+            }
+            @foreach (var meaning in Model.WordMeaning.Meanings)
+            {
+                @if (meaning.Synonyms.Count > 0)
+                {
+                    <li class="list-group-item sub-list">
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item "><b> Synonmys</b> : </li>
+                            @foreach (var synonym in meaning.Synonyms.Take(5))
+                            {
+                                <li class="list-group-item">@synonym</li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+                <li class="list-group-item sub-list">
+                    <ul class="list-group ">
+                        <li class="list-group-item"><b> Definition</b></li>
+                        @foreach (var definition in meaning.Definitions.Take(3))
+                        {
+                            <li class="list-group-item">>@definition.Definition</li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

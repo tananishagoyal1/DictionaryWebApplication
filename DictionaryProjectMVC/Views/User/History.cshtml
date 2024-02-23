@@ -1,0 +1,33 @@
+﻿@model List<String>
+
+@if (Model.Count == 0)
+{
+    <div><h1 class="text-center no-history-message ">Sorry, No Search History found.</h1></div>
+    <div class="text-center m-5">
+        <a class=" button search-redirect-btn " asp-action="index" asp-controller="home">
+            Click here to Search a Word
+        </a>
+    </div>
+}
+else
+{
+
+
+    <h2 class="history-heading text-center">
+        " Trace, explore, and redefine – Your past searches."
+    </h2>
+    <div class="d-flex justify-content-center text-center">
+        <div class="history-container">
+
+            <ul>
+                @foreach (var word in Model)
+                {
+                    <li> <a asp-action="search" asp-controller="home" asp-route-word="@word">@word</a></li>
+                }
+            </ul>
+
+        </div>
+
+    </div>
+    <div class="text-center m-5">  <a class=" button search-redirect-btn " asp-action="index" asp-controller="home">Click here to Search a Word</a></div>
+}

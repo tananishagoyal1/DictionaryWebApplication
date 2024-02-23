@@ -1,0 +1,40 @@
+version: '3'
+services:
+  dictionaryapi:
+    build:
+      context: ../DictionaryApi
+      dockerfile: Dockerfile
+
+    ports:
+     - "8030:80"
+     
+    environment:
+       ConnectionStrings__DictionaryDbConnection: server=db;database=DictionaryApplicationDb;User=SA;Password=Tanisha@123;
+       JWT__Key: "3e0a5c6b8b0f11e0a1bbf0fdd8b74eefc5d30f7bbf1a971b63cdae274adb570b"
+       JWT__Issuer: http://dictionaryapi
+       JWT__Audience: http://dictionaryapi
+       DictionaryApplicationConfiguration__ExternalApiBaseUrl: http://mountebank:8090
+       ASPNETCORE_ENVIRONMENT: testing
+    restart:
+       always
+   
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: Tanisha@123
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      MSSQL_DATABASE: mydb
+    ports:
+     - "1433:1433"
+    
+  mountebank:
+    container_name: mountebank
+    image: bbyars/mountebank:latest
+    # volumes:
+    # - ./imposters:/imposters
+    ports:
+     - 2525:2525
+     - 8090:8090
+    entrypoint: ["mb","start"]
+   # command: ["start", "--configfile", "/imposters/imposters.json", "--allowInjection"]

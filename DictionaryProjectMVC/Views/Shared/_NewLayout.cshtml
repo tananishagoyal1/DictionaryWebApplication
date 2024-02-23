@@ -1,0 +1,22 @@
+﻿@model InputWordViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <form method="post" asp-controller="home" asp-action="search" role="search">
+            <div class="searchbox-container">
+                <input asp-for="@Model.InputWord" class="search-box" type="search" placeholder="Search" aria-label="Search">                
+                <div class="d-flex center-btn">
+                    <button class="search-btn" type="submit">
+                        <img asp-append-version="true" src="~/Images/searchicon.png" />
+                    </button>
+                </div>
+            </div>
+            <span asp-validation-for="@Model.InputWord" class="text-danger fs-3"></span>
+        </form>
+    </div>
+</div>
+@RenderBody()

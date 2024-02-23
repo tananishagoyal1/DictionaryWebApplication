@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  dictionaryapi:
+    build:
+      context: ./DictionaryApi
+      dockerfile: Dockerfile
+
+    ports:
+     - "8030:80"
+     
+    environment:
+       ConnectionStrings__DictionaryDbConnection: server=db;database=DictionaryApplicationDb;User=SA;Password=Tanisha@123;
+       JWT__Issuer: http://dictionaryapi
+       JWT__Audience: http://dictionaryapi
+
+    restart:
+       always
+
+    depends_on:
+      - db
+     
+  dictionaryapp:
+     build:
+       context: ./DictionaryProjectMVC
+       dockerfile: Dockerfile
+
+     ports:
+      - "8025:80"
+      
+     environment:
+        DictionaryApplicationConfiguration__ApiBaseUrl: http://dictionaryapi
+     depends_on:
+      - dictionaryapi
+
+  db:
+   image: mcr.microsoft.com/mssql/server
+   environment:
+     SA_PASSWORD: Tanisha@123
+     ACCEPT_EULA: "Y"
+     MSSQL_PID: Express
+     MSSQL_DATABASE: mydb
+   ports:
+     - "1433:1433"
+   volumes:
+     - mydb_data:/var/opt/mssql
+
+
+volumes:
+   mydb_data:
+
+    

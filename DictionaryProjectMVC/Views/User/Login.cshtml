@@ -1,0 +1,38 @@
+﻿@model LoginUser
+@{
+    ViewBag.Title = "User Login";
+}
+
+<img asp-append-version="true" class="side-image" src="~/Images/catimage.png" />
+<h2 class="login-form-heading text-center">"Discover Words: Open The Vault!"</h2>
+<div class="row login-form"> 
+    <div class=" login-card col-md-4 text-white">
+        @if (ViewBag.LoginFailed != null && ViewBag.LoginFailed)
+        {
+            <div class="alert alert-danger text-danger">
+            <strong>@ViewBag.LoginErrorMessages</strong>
+            </div>
+        }
+        <form method="post">
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+            <div class="form-group login-form-group">
+                <label asp-for="Email" class="input-label"></label>
+                <input asp-for="Email" class="form-control input-field" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group login-form-group">
+                <label asp-for="Password" class="input-label"></label>
+                <input asp-for="Password" class="form-control input-field" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>          
+            <div class="center-btn">
+                <button type="submit" class="button form-login-btn">Login</button>
+            </div>
+            <div class="login-footer d-flex justify-content-center">
+            <div>Don't have an Account?</div>
+                <a class="login-click-link" asp-controller="user" asp-action="register"><b>Click here</b> </a>
+            </div>
+            
+        </form>
+    </div>
+</div>

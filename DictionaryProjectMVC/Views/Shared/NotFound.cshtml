@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Not Found";
+}
+
+<div class="not-found-container">
+    <div class="img-text-container">
+    <img asp-append-version="true" src="~/Images/page-not-found.svg" />
+    <div>
+
+    <div class="error-message">@ViewBag.ErrorMessage</div>
+            <div>
+                <a class="btn button nav-link text-light homepage-redirect-btn" asp-controller="home" asp-action=@nameof(HomeController.Index)>
+                    Home Page
+                </a>
+            </div>
+    </div>
+    </div>
+    
+</div>
